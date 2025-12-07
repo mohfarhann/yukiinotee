@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Layout from '../components/Layout';
+
 
 interface Character {
   id: number;
@@ -78,8 +78,7 @@ const LearningPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream">
-      <Navbar />
+    <Layout>
 
       {/* Header */}
       <div className="bg-gradient-to-r from-rose-300 to-rose-200 pt-8 pb-8 px-6 shadow-lg">
@@ -95,7 +94,7 @@ const LearningPage: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-2xl mx-auto px-6 py-10">
+      <div className="max-w-2xl mx-auto px-6 pt-10 pb-24">
 
         {/* Character Card */}
         <div className="bg-white rounded-3xl shadow-xl p-12 mb-8 text-center">
@@ -184,8 +183,8 @@ const LearningPage: React.FC = () => {
         </Link>
       </div>
 
-      <Footer />
-    </div>
+
+    </Layout>
   );
 };
 

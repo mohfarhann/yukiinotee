@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Layout from '../components/Layout';
+
 import { useDictionary } from '../hooks/useDictionary';
 import { generateGeminiQuiz, AIQuizResponse } from '../services/gemini';
 
@@ -68,10 +68,9 @@ const QuizPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream">
-      <Navbar />
+    <Layout>
 
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-4xl mx-auto px-6 pt-10 pb-24">
         <h1 className="text-3xl font-bold text-rose-600 mb-8 text-center">📝 AI Quiz Practice</h1>
 
         {/* Setup Section */}
@@ -212,8 +211,8 @@ const QuizPage: React.FC = () => {
         )}
       </div>
 
-      <Footer />
-    </div>
+
+    </Layout>
   );
 };
 

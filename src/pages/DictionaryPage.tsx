@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Layout from '../components/Layout';
+
 import { useDictionary, DictionaryEntry } from '../hooks/useDictionary';
 
 const DictionaryPage: React.FC = () => {
@@ -47,8 +47,7 @@ const DictionaryPage: React.FC = () => {
   }, [results, selectedEntry]);
 
   return (
-    <div className="min-h-screen bg-cream">
-      <Navbar />
+    <Layout>
 
       {/* Header */}
       <div className="bg-gradient-to-r from-rose-400 to-rose-300 pt-8 pb-8 px-6 shadow-lg">
@@ -58,10 +57,6 @@ const DictionaryPage: React.FC = () => {
             Explore and learn {totalCount.toLocaleString()} Chinese characters completely
           </p>
         </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 py-10">
-        <h3>The future cannot be predicted, but the future can be created</h3>
       </div>
 
       {/* Main Content */}
@@ -248,37 +243,12 @@ const DictionaryPage: React.FC = () => {
                   {/* Meaning */}
                   <div className="bg-lavender-50 rounded-2xl p-4">
                     <p className="text-sm text-gray-600 mb-2">Meaning</p>
-                    <p className="text-lg font-bold text-lavender-700">
+                    <p className="text-lg font-bold text-rose-600">
                       {selectedEntry.meaning}
                     </p>
                   </div>
-
-                  {/* Frequency */}
-                  <div className="bg-mint-50 rounded-2xl p-4">
-                    <p className="text-sm text-gray-600 mb-2">Usage Level</p>
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1 h-3 bg-mint-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-gradient-to-r from-mint-400 to-mint-500"
-                          style={{ width: `${selectedEntry.frequency}%` }}
-                        />
-                      </div>
-                      <span className="font-bold text-mint-600">
-                        {selectedEntry.frequency}%
-                      </span>
-                    </div>
-                  </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="space-y-3 pt-4 border-t-2 border-gray-100">
-                  <button className="w-full px-4 py-3 rounded-full bg-gradient-to-r from-rose-400 to-rose-500 text-black font-bold hover:shadow-lg transition-all duration-300">
-                    ♥️ Save
-                  </button>
-                  <button className="w-full px-4 py-3 rounded-full bg-lavender-100 text-lavender-700 font-bold hover:shadow-lg transition-all duration-300">
-                    🔊 Listen
-                  </button>
-                </div>
               </div>
             ) : (
               <div className="sticky top-20 bg-gradient-to-b from-rose-50 to-lavender-50 rounded-3xl shadow-lg p-8 text-center">
@@ -292,8 +262,8 @@ const DictionaryPage: React.FC = () => {
         </div>
       </div>
 
-      <Footer />
-    </div>
+
+    </Layout>
   );
 };
 
