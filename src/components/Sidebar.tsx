@@ -33,7 +33,7 @@ const Sidebar: React.FC = () => {
         >
           <span className="text-2xl">{isOpen ? '✕' : '☰'}</span>
         </button>
-        <span className="font-bold text-rose-500 text-lg">Yuki Dictionary</span>
+        <span className="font-bold text-rose-500 text-lg">Yuki Note</span>
         <div className="w-10"></div> {/* Spacer for centering if needed, or just empty */}
       </div>
 
