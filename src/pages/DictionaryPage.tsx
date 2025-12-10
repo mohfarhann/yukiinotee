@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Layout from '../components/Layout';
 
 import { useDictionary, DictionaryEntry } from '../hooks/useDictionary';
+import { generateGeminiExamples, AIExampleResponse } from '../services/gemini';
 
 const DictionaryPage: React.FC = () => {
   const { db, loading, error, search, getTotalCount } = useDictionary();
@@ -10,6 +11,8 @@ const DictionaryPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'frequency' | 'pinyin'>('frequency');
   const [currentPage, setCurrentPage] = useState(0);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+  const [examples, setExamples] = useState<AIExampleResponse[]>([]);
+  const [loadingExamples, setLoadingExamples] = useState(false);
 
   // Detect screen size
   useEffect(() => {
@@ -45,6 +48,19 @@ const DictionaryPage: React.FC = () => {
       setSelectedEntry(null);
     }
   }, [results, selectedEntry]);
+
+  // Reset examples when selected entry changes
+  useEffect(() => {
+    setExamples([]);
+  }, [selectedEntry]);
+
+  const handleGenerateExamples = async () => {
+    if (!selectedEntry) return;
+    setLoadingExamples(true);
+    const result = await generateGeminiExamples(selectedEntry.simplified, selectedEntry.meaning);
+    setExamples(result);
+    setLoadingExamples(false);
+  };
 
   return (
     <Layout>
@@ -247,6 +263,39 @@ const DictionaryPage: React.FC = () => {
                       {selectedEntry.meaning}
                     </p>
                   </div>
+                </div>
+
+                {/* AI Examples Generator */}
+                <div className="pt-4 border-t border-gray-100">
+                  <button
+                    onClick={handleGenerateExamples}
+                    disabled={loadingExamples}
+                    className="w-full py-3 bg-gradient-to-r from-rose-400 to-rose-500 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {loadingExamples ? (
+                      <>
+                        <span className="animate-spin">⏳</span> Generating...
+                      </>
+                    ) : (
+                      <>
+                        <span>✨</span> Generate AI Examples
+                      </>
+                    )}
+                  </button>
+
+                  {/* Examples List */}
+                  {examples.length > 0 && (
+                    <div className="mt-4 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                      <h3 className="font-bold text-gray-700">Example Sentences:</h3>
+                      {examples.map((ex, idx) => (
+                        <div key={idx} className="bg-white border border-rose-100 rounded-xl p-3 shadow-sm">
+                          <p className="text-lg font-medium text-gray-800 mb-1">{ex.sentence}</p>
+                          <p className="text-sm text-rose-500 mb-1">{ex.pinyin}</p>
+                          <p className="text-xs text-gray-500 italic">{ex.translation}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
               </div>
