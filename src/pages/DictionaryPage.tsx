@@ -62,6 +62,8 @@ const DictionaryPage: React.FC = () => {
     setLoadingExamples(false);
   };
 
+  
+
   return (
     <Layout>
 
@@ -310,7 +312,11 @@ const DictionaryPage: React.FC = () => {
           </div>
         </div>
       </div>
-
+      <div className="h-20 text-center">
+        {import.meta.env.VITE_GEMINI_API_KEY !== '' && (
+          <p className="text-xs text-gray-400">Kenapa huruf B kedinginan? karena di tengah-tengah AC</p>
+        )}
+      </div>
 
     </Layout>
   );
