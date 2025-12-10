@@ -313,8 +313,11 @@ const DictionaryPage: React.FC = () => {
         </div>
       </div>
       <div className="h-20 text-center">
-        {import.meta.env.VITE_GEMINI_API_KEY !== '' && (
-          <p className="text-xs text-gray-400">Kenapa huruf B kedinginan? karena di tengah-tengah AC</p>
+        {import.meta.env.VITE_GEMINI_API_KEY !== ''|| import.meta.env.VITE_GEMINI_API_KEY === undefined || import.meta.env.VITE_GEMINI_API_KEY === null && (
+          <div>
+            <p className="text-xs text-gray-400">Kenapa huruf B kedinginan? karena di tengah-tengah AC</p>
+            <p className='text-xs text-gray-400'>{import.meta.env.VITE_GEMINI_API_KEY}</p>
+          </div>
         )}
       </div>
 
